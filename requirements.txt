@@ -1,0 +1,10 @@
+langchain
+langchain-community
+langchain-openai
+matplotlib
+openai
+openai-whisper
+pyaudio
+pymysql
+pyttsx3
+wave
