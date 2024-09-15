@@ -12,7 +12,7 @@ import whisper
 from langchain_community.agent_toolkits.sql.toolkit import SQLDatabaseToolkit
 from langchain_community.agent_toolkits.sql.base import create_sql_agent
 from langchain_community.utilities import SQLDatabase
-from langchain_openai import OpenAI
+from langchain_openai import ChatOpenAI
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from tkinter import scrolledtext
 
@@ -34,7 +34,7 @@ db = SQLDatabase.from_uri(
         "?ssl_ca=/path/to/singlestore_bundle.pem"
 )
 
-llm = OpenAI(temperature = 0, verbose = False)
+llm = ChatOpenAI(model = "gpt-4o-mini", temperature = 0, verbose = False)
 
 toolkit = SQLDatabaseToolkit(db = db, llm = llm)
 
