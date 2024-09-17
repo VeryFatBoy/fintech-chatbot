@@ -47,6 +47,8 @@ agent_executor = create_sql_agent(
         verbose = False
 )
 
+error_string = "Could not parse LLM output:"
+
 model = whisper.load_model("base.en")
 
 # GUI class
@@ -126,7 +128,17 @@ class AudioRecorderGUI:
         self.record_thread.join()
 
         transcription = self.transcribe_audio(self.audio_filename)
-        result = agent_executor.invoke(transcription, return_only_outputs = True)["output"]
+
+        try:
+            result = agent_executor.invoke(transcription, return_only_outputs = True)["output"]
+        except Exception as e:
+            error_message = str(e)
+            # Check if the error message contains the specific string
+            if error_string in error_message:
+                # Extract the part after the specific string and strip backticks
+                result = error_message.split(error_string)[1].strip().strip('`')
+            else:
+                result = f"Error occurred: {error_message}"
 
         self.transcription_box.insert(
             tk.END,
