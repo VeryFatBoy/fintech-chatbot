@@ -31,7 +31,8 @@ s2_port = <port>
 s2_db = "<database>"
 db = SQLDatabase.from_uri(
         f"singlestoredb://{s2_user}:{s2_password}@{s2_host}:{s2_port}/{s2_db}"
-        "?ssl_ca=/path/to/singlestore_bundle.pem"
+        "?ssl_ca=/path/to/singlestore_bundle.pem",
+        include_tables = ["tick", "stock_sentiment"]
 )
 
 llm = ChatOpenAI(model = "gpt-4o-mini", temperature = 0, verbose = False)
