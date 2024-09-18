@@ -32,7 +32,7 @@ s2_db = "<database>"
 db = SQLDatabase.from_uri(
         f"singlestoredb://{s2_user}:{s2_password}@{s2_host}:{s2_port}/{s2_db}"
         "?ssl_ca=/path/to/singlestore_bundle.pem",
-        include_tables = ["tick", "stock_sentiment"]
+        include_tables = ["tick"]
 )
 
 llm = ChatOpenAI(model = "gpt-4o-mini", temperature = 0, verbose = False)
@@ -143,8 +143,8 @@ class AudioRecorderGUI:
 
         self.transcription_box.insert(
             tk.END,
-            "Transcription:\n" + transcription + "\n" +
-            "Result:\n" + result + "\n"
+            "Transcription:\n" + str(transcription) + "\n" +
+            "Result:\n" + str(result) + "\n"
         )
         
         speak_thread = threading.Thread(target = self.speak_audio, args = (result,))
